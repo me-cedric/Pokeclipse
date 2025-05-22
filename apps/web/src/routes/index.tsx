@@ -1,9 +1,10 @@
 import Button from "@/components/button/Button";
 import Frame from "@/components/frame/Frame";
+import InputBox from "@/components/input/input";
 import { trpc } from "@/hooks/trpc";
 import { createFileRoute } from "@tanstack/react-router";
 import { httpBatchLink } from "@trpc/client";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +24,14 @@ function App() {
       }),
     []
   );
+  const [value, setValue] = useState("");
+  const [size, setSize] = useState(4);
+  const onChange = (newValue: string) => {
+    if (newValue && newValue !== value) {
+      setValue(newValue);
+      setSize(newValue.length < 10 ? newValue.length + 1 : newValue.length);
+    }
+  };
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
@@ -40,6 +49,12 @@ function App() {
           ???
         </Button>
         <Frame>REPONSE</Frame>
+        <InputBox
+          size={size}
+          minSize={4}
+          value={value}
+          onChange={(newValue) => onChange(newValue)}
+        />
       </QueryClientProvider>
     </trpc.Provider>
   );
