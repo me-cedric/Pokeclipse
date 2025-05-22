@@ -1,0 +1,21 @@
+{
+  "name": "pokeclipse",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "turbo": "^2.5.3"
+  },
+  "packageManager": "^npm@10.9.2"
+}

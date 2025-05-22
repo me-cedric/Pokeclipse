@@ -1,0 +1,27 @@
+{
+  "name": "@pokeclispe/api",
+  "version": "1.0.0",
+  "main": "src/router",
+  "scripts": {
+    "dev": "tsnd --respawn --transpile-only src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fastify/cors": "^11.0.1",
+    "@prisma/client": "^6.8.2",
+    "@trpc/server": "^11.1.2",
+    "fastify": "^5.3.3",
+    "zod": "^3.25.20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "prisma": "^6.8.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
