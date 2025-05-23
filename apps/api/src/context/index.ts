@@ -1,7 +1,6 @@
 import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
-import { PrismaClient } from "../../generated/prisma";
 
-const prisma = new PrismaClient();
+import prisma from "../db";
 
 export const createContext = ({ req, res }: CreateFastifyContextOptions) => {
   return { req, res, prisma };
