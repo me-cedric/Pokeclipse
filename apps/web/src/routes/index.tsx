@@ -1,7 +1,7 @@
-import { trpc } from "@/router";
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import Button from "@/components/button/Button";
+import { useTRPC } from "@/utils/trpc";
+import { useQuery } from "@tanstack/react-query";
 import { useSubscription } from "@trpc/tanstack-react-query";
 
 export const Route = createFileRoute("/")({
@@ -9,10 +9,16 @@ export const Route = createFileRoute("/")({
 });
 
 function App() {
+  const trpc = useTRPC();
+
   const { data } = useQuery(trpc.hello.queryOptions());
 
   const { data: activeGames } = useSubscription(
     trpc.activeGames.subscriptionOptions()
+  );
+
+  const { data: protectedData, error: protectedError } = useQuery(
+    trpc.protected.queryOptions()
   );
 
   return (
@@ -26,8 +32,13 @@ function App() {
       </Button>
 
       <div>
-        {activeGames?.map((game) => <div key={game.id}>{game.id}</div>)}
+        {activeGames?.map((game: { id: string }) => (
+          <div key={game.id}>{game.id}</div>
+        ))}
       </div>
+
+      <div>{protectedData?.userId}</div>
+      <div className="text-red-500">{protectedError?.message}</div>
     </div>
   );
 }
