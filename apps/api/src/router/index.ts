@@ -1,27 +1,26 @@
-import { initTRPC } from "@trpc/server";
-import { EventEmitter, on } from "stream";
-import superjson from "superjson";
-
-const t = initTRPC.create({
-  transformer: superjson,
-});
-
-// TODO: Typesafe reusable global event emitter
-const ee = new EventEmitter();
+import { baseProcedure, protectedProcedure } from "../router/procedures";
+import { SocketService } from "../services/SocketService";
+import { t } from "./trpc";
 
 export const appRouter = t.router({
-  hello: t.procedure.query(() => {
+  hello: baseProcedure.query(() => {
     return "Hello, world!";
   }),
 
-  activeGames: t.procedure.subscription(async function* (opts) {
+  activeGames: baseProcedure.subscription(async function* (opts) {
     yield [{ id: "1" }];
 
-    for await (const [data] of on(ee, "activeGames", {
+    for await (const data of SocketService.subscribe<{ id: string }[]>("yolo", {
       signal: opts.signal,
     })) {
-      yield data as { id: string }[];
+      yield data;
     }
+  }),
+
+  protected: protectedProcedure.query(async ({ ctx }) => {
+    return {
+      userId: ctx.userId,
+    };
   }),
 });
 

@@ -17,8 +17,5 @@
   "packageManager": "^npm@10.9.2",
   "devDependencies": {
     "turbo": "^2.5.3"
-  },
-  "dependencies": {
-    "@trpc/tanstack-react-query": "^11.1.2"
   }
 }
