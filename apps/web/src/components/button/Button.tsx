@@ -8,6 +8,18 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
+/**
+ * Button component with pixel corners and customizable styles.
+ * @example
+ * <Button
+ *   disabled={false}
+ *   color="#5da93c"
+ *   reverseFont={true}
+ *   onClick={() => console.log("Button clicked!")}
+ * >
+ *  Button
+ * </Button>
+ */
 export default function Button({
   disabled,
   color,

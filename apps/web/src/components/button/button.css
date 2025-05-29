@@ -24,6 +24,7 @@
 }
 
 .pixel-corners {
+    cursor: pointer;
     padding: 0.5rem 1rem;
     border: 4px solid transparent;
     width: 100%;
