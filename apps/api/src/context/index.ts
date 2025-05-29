@@ -1,23 +1,20 @@
 import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
-import jwt from "jsonwebtoken";
+import { auth } from "../utils/auth";
 
-export const createContext = ({ req, res }: CreateFastifyContextOptions) => {
-  let userId: string | null = null;
+export const createContext = async ({
+  req,
+  res,
+}: CreateFastifyContextOptions) => {
+  const headers = new Headers();
+  Object.entries(req.headers).forEach(([key, value]) => {
+    if (value) headers.append(key, value.toString());
+  });
 
-  const token =
-    req.headers["authorization"] ?
-      req.headers["authorization"].replace("Bearer ", "")
-    : new URLSearchParams(req.url.split("?")[1]).get("token");
+  const session = await auth.api.getSession({
+    headers,
+  });
 
-  if (token) {
-    try {
-      const decoded = jwt.decode(token) as { sub?: string } | null;
-      userId = decoded?.sub ?? null;
-    } catch {
-      userId = null;
-    }
-  }
-  return { req, res, userId };
+  return { req, res, session };
 };
 
 export type Context = Awaited<ReturnType<typeof createContext>>;

@@ -11,12 +11,12 @@ generator client {
 }
 
 generator zod {
-  provider       = "zod-prisma-types"
-  output         = "../generated/zod"
+  provider = "zod-prisma-types"
+  output   = "../generated/zod"
 }
 
 datasource db {
-  provider     = "postgres"
+  provider = "postgres"
   // We need to provide a stub value for the db url because prisma will throw a valid postgres url is not provided
   url      = env("DATABASE_URL")
 }
@@ -29,10 +29,63 @@ datasource db {
 //}
 
 model User {
-  id        String   @id @default(uuid())
-  discordId String   @unique
-  name      String
-  avatar    String
+  id            String    @id @default(uuid())
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
 }
 
 enum GameState {
@@ -49,10 +102,10 @@ enum GameState {
 }
 
 model Game {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  isActive  Boolean  @default(false)
+  id           String    @id @default(uuid())
+  name         String
+  createdAt    DateTime  @default(now())
+  isActive     Boolean   @default(false)
   currentState GameState @default(IDLE)
 }
 
@@ -62,8 +115,8 @@ enum UserType {
 }
 
 model GameMember {
-  id        String   @id @default(uuid())
-  gameId    String
-  userId    String
-  userType  UserType
+  id       String   @id @default(uuid())
+  gameId   String
+  userId   String
+  userType UserType
 }

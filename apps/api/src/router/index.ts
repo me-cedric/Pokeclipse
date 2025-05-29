@@ -19,7 +19,7 @@ export const appRouter = t.router({
 
   protected: protectedProcedure.query(async ({ ctx }) => {
     return {
-      userId: ctx.userId,
+      session: ctx.session,
     };
   }),
 });
