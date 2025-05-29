@@ -18,7 +18,7 @@ generator zod {
 datasource db {
   provider     = "postgres"
   // We need to provide a stub value for the db url because prisma will throw a valid postgres url is not provided
-  url          = "postgresql://localhost:5432/pokeclipse"
+  url      = env("DATABASE_URL")
 }
 
 //model Note {
