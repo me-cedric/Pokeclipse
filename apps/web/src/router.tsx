@@ -33,12 +33,8 @@ export const queryClient = new QueryClient({
   },
 });
 
-function getAuthToken() {
-  return localStorage.getItem("pokeclipse-token") ?? "guest";
-}
-
 const wsClient = createWSClient({
-  url: `ws://localhost:5000/ws?token=${getAuthToken()}`,
+  url: `ws://localhost:5000/ws`,
 });
 
 export const trpc = createTRPCClient<AppRouter>({
@@ -48,12 +44,19 @@ export const trpc = createTRPCClient<AppRouter>({
       true: wsLink({ client: wsClient, transformer: superjson }),
       false: httpBatchLink({
         url: "http://localhost:5000/trpc",
-        async headers() {
-          return {
-            Authorization: `Bearer ${getAuthToken()}`,
-          };
+        headers() {
+          const headers = new Headers();
+          headers.set("X-Requested-With", "react");
+          return headers;
         },
         transformer: superjson,
+        fetch: async (url, options) => {
+          const response = await fetch(url, {
+            ...options,
+            credentials: "include",
+          });
+          return response;
+        },
       }),
     }),
   ],

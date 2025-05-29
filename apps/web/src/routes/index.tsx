@@ -3,6 +3,7 @@ import Button from "@/components/button/Button";
 import { useTRPC } from "@/utils/trpc";
 import { useQuery } from "@tanstack/react-query";
 import { useSubscription } from "@trpc/tanstack-react-query";
+import { authClient } from "@/utils/auth-client";
 
 export const Route = createFileRoute("/")({
   component: App,
@@ -27,7 +28,16 @@ function App() {
 
       <div>{data}</div>
 
-      <Button color="#5da93c" reverseFont={true}>
+      <Button
+        color="#5da93c"
+        reverseFont={true}
+        onClick={() =>
+          authClient.signIn.social({
+            provider: "discord",
+            callbackURL: "http://localhost:3000",
+          })
+        }
+      >
         Se connecter
       </Button>
 
@@ -37,7 +47,13 @@ function App() {
         ))}
       </div>
 
-      <div>{protectedData?.userId}</div>
+      {!!protectedData?.session && (
+        <>
+          <div>{protectedData?.session?.user?.id}</div>
+          <div>{protectedData?.session?.user?.name}</div>
+          <img src={protectedData?.session?.user?.image ?? ""} />
+        </>
+      )}
       <div className="text-red-500">{protectedError?.message}</div>
     </div>
   );

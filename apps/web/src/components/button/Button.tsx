@@ -5,6 +5,7 @@ interface ButtonProps {
   color?: string;
   reverseFont?: boolean;
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
 export default function Button({
@@ -12,6 +13,7 @@ export default function Button({
   color,
   reverseFont,
   children,
+  onClick,
 }: ButtonProps) {
   const buttonStyles = {
     backgroundColor: color ?? undefined,
@@ -26,6 +28,7 @@ export default function Button({
         style={buttonStyles}
         disabled={disabled || false}
         className="pixel-corners"
+        onClick={onClick}
       >
         {children}
       </button>
