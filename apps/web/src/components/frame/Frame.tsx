@@ -1,6 +1,9 @@
+import type { CSSProperties } from "react";
 import "./frame.css";
 
 interface FrameProps {
+  className?: string;
+  style?: CSSProperties;
   children: React.ReactNode;
 }
 
@@ -11,9 +14,9 @@ interface FrameProps {
  *   <p>Your content here</p>
  * </Frame>
  */
-export default function Frame({ children }: FrameProps) {
+export default function Frame({ className, style, children }: FrameProps) {
   return (
-    <div className="frame">
+    <div className={`${className ? `${className} ` : ""}frame`} style={style}>
       <span>{children}</span>
     </div>
   );

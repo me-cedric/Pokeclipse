@@ -1,6 +1,9 @@
+import type { CSSProperties } from "react";
 import "./button.css";
 
 interface ButtonProps {
+  className?: string;
+  style?: CSSProperties;
   disabled?: boolean;
   color?: string;
   reverseFont?: boolean;
@@ -21,6 +24,8 @@ interface ButtonProps {
  * </Button>
  */
 export default function Button({
+  className,
+  style,
   disabled,
   color,
   reverseFont,
@@ -34,7 +39,10 @@ export default function Button({
     paintOrder: reverseFont ? "stroke fill" : undefined,
   };
   return (
-    <div className="pixel-corners--wrapper">
+    <div
+      className={`${className ? `${className} ` : ""}pixel-corners--wrapper`}
+      style={style}
+    >
       <button
         type="button"
         style={buttonStyles}
