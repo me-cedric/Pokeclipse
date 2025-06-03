@@ -1,11 +1,14 @@
 import { baseProcedure, protectedProcedure } from "../router/procedures";
 import { SocketService } from "../services/SocketService";
+import { gameRouter } from "./game";
 import { t } from "./trpc";
 
 export const appRouter = t.router({
   hello: baseProcedure.query(() => {
     return "Hello, world!";
   }),
+
+  game: gameRouter,
 
   activeGames: baseProcedure.subscription(async function* (opts) {
     yield [{ id: "1" }];
