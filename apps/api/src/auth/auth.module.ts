@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { HttpAdapterHost } from '@nestjs/core';
 import { toNodeHandler } from 'better-auth/node';
+import getCorsOptions from '../../cors';
 import { DatabasesModule } from '../database/databases.module';
 import { AuthController } from './auth.controller';
 import { betterAuthConfig } from './better-auth.config';
@@ -25,6 +26,7 @@ export class AuthModule {
     private readonly adapter: HttpAdapterHost,
     private readonly betterAuthService: BetterAuthService,
   ) {
+    this.adapter.httpAdapter.enableCors(getCorsOptions());
     this.adapter.httpAdapter.all(
       `${this.betterAuthService.basePath}/{*any}`,
       toNodeHandler(betterAuthService.client),

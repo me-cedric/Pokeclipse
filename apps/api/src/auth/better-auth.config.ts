@@ -3,7 +3,7 @@ import { ConfigType, registerAs } from '@nestjs/config';
 export const betterAuthConfig = registerAs('better-auth', () => ({
   secret: process.env.BETTER_AUTH_SECRET!,
   baseUrl: process.env.BETTER_AUTH_URL!,
-  trustedOrigins: ['http://localhost:3000'],
+  trustedOrigins: ['http://localhost:3000', 'http://localhost:4200'],
 }));
 
 export type BetterAuthConfig = ConfigType<typeof betterAuthConfig>;
