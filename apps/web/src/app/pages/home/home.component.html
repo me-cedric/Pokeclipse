@@ -1,15 +1,11 @@
-    <div class="h-screen flex flex-col items-center gap-8">
-      <h1 class="text-[6rem] font-bold pt-[12vh]">Pokéclipse</h1>
+<div class="h-screen flex flex-col items-center gap-8">
+  <h1 class="text-[6rem] font-bold pt-[12vh]">Pokéclipse</h1>
 
-      <Button
-        color="#5da93c"
-        reverseFont={true}
-        (click)="login()"
-      >
-        Se connecter
-      </Button>
+  <app-button color="#5da93c" [reverseFont]="true" (click)="login()">
+    Se connecter
+  </app-button>
 
-      <!-- {!!protectedData?.session && (
+  <!-- {!!protectedData?.session && (
         <>
           <div>{protectedData?.session?.user?.id}</div>
           <div>{protectedData?.session?.user?.name}</div>
@@ -17,4 +13,4 @@
         </>
       )}
       <div class="text-red-500">{protectedError?.message}</div> -->
-    </div>
+</div>
