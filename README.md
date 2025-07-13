@@ -16,6 +16,6 @@ password: <from .env>
 
 `npm i -g turbo`.
 
-`cd apps/api` and `npx prisma generate` and `npx prisma migrate dev --name init`.
+`cd apps/api` and `npx prisma generate` and `npx prisma db push` or `npx prisma migrate dev --name init`.
 
 `npm run dev` in root directory.

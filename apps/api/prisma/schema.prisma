@@ -29,7 +29,7 @@ datasource db {
 //}
 
 model User {
-  id            String    @id @default(uuid())
+  id            String            @id @default(uuid())
   name          String
   email         String
   emailVerified Boolean
@@ -38,6 +38,10 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+
+  // extra fields than better auth
+  isAdmin       Boolean           @default(false)
+  games         UsersOnGames[]
 
   @@unique([email])
   @@map("user")
@@ -105,18 +109,27 @@ model Game {
   id           String    @id @default(uuid())
   name         String
   createdAt    DateTime  @default(now())
-  isActive     Boolean   @default(false)
+  isActive     Boolean   @default(true)
   currentState GameState @default(IDLE)
+  players        UsersOnGames[]
+}
+
+model UsersOnGames {
+  game        Game      @relation(fields: [gameId], references: [id])
+  gameId      String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  assignedAt  DateTime @default(now())
+  assignedBy  String
+  userType UserType
+
+  @@id([gameId, userId])
+  @@index([gameId])
+  @@index([userId])
 }
 
 enum UserType {
   PLAYER
+  TEAM_LEADER
   ADMIN
-}
-
-model GameMember {
-  id       String   @id @default(uuid())
-  gameId   String
-  userId   String
-  userType UserType
 }

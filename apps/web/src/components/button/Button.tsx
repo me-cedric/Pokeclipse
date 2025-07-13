@@ -42,13 +42,13 @@ export default function Button({
     <div
       className={`${className ? `${className} ` : ""}pixel-corners--wrapper`}
       style={style}
+      onClick={onClick}
     >
       <button
         type="button"
         style={buttonStyles}
         disabled={disabled || false}
         className="pixel-corners"
-        onClick={onClick}
       >
         {children}
       </button>
