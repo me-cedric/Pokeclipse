@@ -1,0 +1,9 @@
+.frame {
+  position: relative;
+  border-image: url('../../../../public/poke-border.png') 42 round;
+  border-width: 21px;
+  border-style: solid;
+  padding: 1em;
+  width: 100%;
+  max-width: 100%;
+}

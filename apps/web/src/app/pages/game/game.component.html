@@ -1,0 +1,40 @@
+<div class="h-full flex flex-col justify-between">
+  <div class="text-center">pokecplise</div>
+
+  <div class="mt-full grid grid-cols-4 mt-full mx-12">
+    <div class="col-span-1"></div>
+    <div class="col-span-2">
+      <app-frame>Content</app-frame>
+    </div>
+  </div>
+
+  <div class="mt-full grid grid-cols-3 mt-full mx-12">
+    <div class="col-span-1"></div>
+    <div class="w-2/3 flex flex-col items-center mx-auto my-auto">
+      <span class="mr-4">Proposition</span>
+      <app-input
+        class="grow-0"
+        [value]="value"
+        [size]="6"
+        type="text"
+        (valueChange)="onChange($event)"
+      ></app-input>
+      <span>{{ value }}</span>
+    </div>
+  </div>
+
+  <div class="mt-full grid grid-cols-3 mt-full mx-12">
+    <div class="col-span-1"></div>
+
+    <div class="w-2/3 mx-auto my-auto">
+      <app-frame>REPONSE</app-frame>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 *:grow *:w-full! my-auto py-8">
+      <app-button color="#a60d0d" [reverseFont]="true">CAPACITES</app-button>
+      <app-button color="#d2a828" [reverseFont]="true">OBJETS</app-button>
+      <app-button color="#5da93c" [reverseFont]="true">???</app-button>
+      <app-button color="#515aa8" [reverseFont]="true">???</app-button>
+    </div>
+  </div>
+</div>

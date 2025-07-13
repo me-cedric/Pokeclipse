@@ -1,0 +1,15 @@
+<div
+  class="{{ className }} pixel-corners--wrapper"
+  [style]="style"
+>
+  <button
+    type="button"
+    [style]="buttonStyles"
+    [disabled]="disabled"
+    class="pixel-corners"
+    (click)="clicked.emit()"
+  >
+    <ng-content></ng-content>
+  </button>
+</div>
+

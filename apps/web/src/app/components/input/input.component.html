@@ -1,0 +1,19 @@
+<div
+  class="input-group {{ className }}"
+  [style]="style"
+>
+@for (val of arrayValue; track $index; let i = $index) {
+  <div
+    class="input-container"
+  >
+    <input
+      #inputRef
+      class="input-box"
+      [type]="type"
+      [value]="val"
+      (input)="handleInput($event, i)"
+      (keydown)="handleKeyDown($event, i)"
+    />
+  </div>
+}
+</div>

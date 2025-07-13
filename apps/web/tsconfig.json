@@ -3,10 +3,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-      "baseUrl": "./",
-      "outDir": "./dist/out-tsc",
-      "forceConsistentCasingInFileNames": true,
-
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -17,7 +16,13 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "paths": {
+      "@services/*": ["src/app/services/*"],
+      "@components/*": ["src/app/components/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@environments/*": ["src/app/environments/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,72 @@
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px 16px;
+}
+
+.input-group::before {
+  content: "";
+  position: absolute;
+  top: 1.7rem;
+  left: -2px;
+  width: 2px;
+  height: 2px;
+  font-size: 2px;
+  color: #181010;
+  box-shadow: 1em 0 #181010, 2em 0 #181010, 1em 1em #181010, 2em 1em #181010,
+    3em 1em #181010, 1em 2em #181010, 2em 2em #181010, 3em 2em #181010,
+    4em 2em #181010, 1em 3em #181010, 2em 3em #181010, 3em 3em #181010,
+    4em 3em #181010, 5em 3em #181010, 1em 4em #181010, 2em 4em #181010,
+    3em 4em #181010, 4em 4em #181010, 1em 5em #181010, 2em 5em #181010,
+    3em 5em #181010, 1em 6em #181010, 2em 6em #181010;
+}
+
+.input-box {
+  all: unset;
+  line-height: 1.1;
+  -webkit-appearance: none;
+  width: 1.7em;
+  height: 2em;
+  background-color: transparent;
+  font-family: inherit;
+  text-align: center;
+}
+
+@keyframes bottomcursor {
+  0% {
+    bottom: -4px;
+  }
+
+  50% {
+    bottom: 0;
+  }
+
+  100% {
+    bottom: -4px;
+  }
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  display: block;
+  background: #000;
+  content: '';
+}
+
+.input-container:has(input:focus):after {
+  animation-name: bottomcursor;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: step-end;
+  bottom: -4px;
+}
