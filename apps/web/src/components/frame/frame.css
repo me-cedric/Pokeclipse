@@ -1,9 +1,11 @@
 .frame {
-    position: relative;
-    border-image: url('../../../assets/poke-border.png') 42 round;
-    border-width: 21px;
-    border-style: solid;
-    padding: 1em;
-    width: 100%;
-    max-width: 100%;
+  position: relative;
+  border-image: url("../../../assets/poke-border.png") 42 round;
+  border-image-outset: 14px 14px 14px 12px;
+  border-width: 21px;
+  border-style: solid;
+  border-radius: 8px;
+  padding: 1em;
+  width: 100%;
+  max-width: 100%;
 }
